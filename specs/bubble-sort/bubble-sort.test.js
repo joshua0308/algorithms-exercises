@@ -11,8 +11,7 @@
 */
 
 function bubbleSort(nums) {
-  // code goes here
-
+  // pseudo code
   // two loops
   // 1. a while loop to check if anything was swapped
   // 2. iterate over the array
