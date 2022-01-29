@@ -71,49 +71,19 @@ describe.skip("depth-first traversals", function () {
 
   it("preorderTraverse", () => {
     expect(preorderTraverse(tree, [])).toEqual([
-      8,
-      4,
-      3,
-      2,
-      5,
-      7,
-      6,
-      12,
-      10,
-      9,
-      11
+      8, 4, 3, 2, 5, 7, 6, 12, 10, 9, 11
     ]);
   });
 
   it("inorderTraverse", () => {
     expect(inorderTraverse(tree, [])).toEqual([
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
+      2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
     ]);
   });
 
   it("postorderTraverse", () => {
     expect(postorderTraverse(tree, [])).toEqual([
-      2,
-      3,
-      6,
-      7,
-      5,
-      4,
-      9,
-      11,
-      10,
-      12,
-      8
+      2, 3, 6, 7, 5, 4, 9, 11, 10, 12, 8
     ]);
   });
 });
