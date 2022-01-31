@@ -6,18 +6,20 @@
   You'll need to write more than just one function
 */
 
-function mergeSort(numsArray) {
+function mergeSort(nums) {
   // base case:
   // if one el in arry, return el
-  if (numsArray.length === 1) return numsArray;
+  if (nums.length === 1) return nums;
 
   // split the array into two
-  const middle = Math.round(numsArray.length / 2);
-  const arr1 = numsArray.slice(0, middle);
-  const arr2 = numsArray.slice(middle, numsArray.length);
+  const middle = Math.floor(nums.length / 2);
+  const left = nums.slice(0, middle);
+  const right = nums.slice(middle, nums.length);
 
   // merge( mergeSort(arr1), mergeSort(arr2) )
-  return merge(mergeSort(arr1), mergeSort(arr2));
+  const sortedLeft = mergeSort(left);
+  const srotedRight = mergeSort(right);
+  return merge(sortedLeft, srotedRight);
 }
 
 function merge(arr1, arr2) {
