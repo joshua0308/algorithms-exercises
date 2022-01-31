@@ -14,13 +14,31 @@
 
 function quickSort(nums) {
   // code goes here
+
+  // base case:
+  // return nums if nums.length < 2
+  if (nums.length < 2) return nums;
+
+  // pick a pivot
+  // divide the array into two
+  // left and right
+  // quickSort each array
+  // return quickSort(left) + pivot + quickSort(right);
+  const pivot = nums.pop();
+  const left = [];
+  const right = [];
+  for (const num of nums) {
+    if (num < pivot) left.push(num);
+    else right.push(num);
+  }
+
+  return quickSort(left).concat(pivot).concat(quickSort(right));
 }
 
 // unit tests
 // do not modify the below code
-test.skip("quickSort", function () {
+test("quickSort", function () {
   const input = [10, 8, 2, 1, 6, 3, 9, 4, 7, 5];
   const answer = quickSort(input);
-
   expect(answer).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 });
