@@ -32,7 +32,9 @@ function quickSort(nums) {
     else right.push(num);
   }
 
-  return quickSort(left).concat(pivot).concat(quickSort(right));
+  const sortedLeft = quickSort(left);
+  const sortedRight = quickSort(right);
+  return [...sortedLeft, pivot, ...sortedRight];
 }
 
 // unit tests
