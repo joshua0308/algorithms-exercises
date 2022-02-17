@@ -49,13 +49,14 @@ function radixSort(nums) {
   const iteration_num = getIterationNum(nums);
 
   for (let n = 1; n <= iteration_num; n += 1) {
-    const bucket = [[], [], [], [], [], [], [], [], [], []]; // 0 ~ 9 (10 buckets)
+    const buckets = [[], [], [], [], [], [], [], [], [], []]; // 0 ~ 9 (10 buckets)
+
     for (const num of nums) {
       let idx = getNthPlaceNum(num, n);
-      bucket[idx].push(num);
+      buckets[idx].push(num);
     }
 
-    nums = bucket.flat();
+    nums = buckets.flat();
   }
 
   return nums;

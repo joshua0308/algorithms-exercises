@@ -10,6 +10,13 @@
 */
 
 function getDigit(number, place, longestNumber) {
+  // number 125
+  // place 1
+  // longest number 4
+
+  // size 3
+  // mod = 4 - 3 = 1
+  // idx = 3 - 1 = 2
   const string = number.toString();
   const size = string.length;
 
@@ -49,7 +56,7 @@ function radixSort(array) {
 
 // unit tests
 // do not modify the below code
-describe.skip("radix sort", function () {
+describe("radix sort", function () {
   it("should sort correctly", () => {
     const nums = [
       20, 51, 3, 801, 415, 62, 4, 17, 19, 11, 1, 100, 1244, 104, 944, 854, 34,
