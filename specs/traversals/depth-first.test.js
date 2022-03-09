@@ -50,6 +50,17 @@ const postorderTraverse = (node, array) => {
   return array;
 };
 
+// solution
+const traverse = (node, array) => {
+  if (!node) return array;
+
+  array.push(node.value);
+  traverse(node.left, array);
+  traverse(node.right, array);
+
+  return array;
+};
+
 // unit tests
 // do not modify the below code
 describe("depth-first traversals", function () {

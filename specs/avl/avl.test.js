@@ -237,8 +237,6 @@ describe("AVL Tree", function () {
     nums.map((num) => tree.add(num));
     const objs = tree.root;
 
-    // eslint-disable-next-line no-console
-    console.log("debug: tree", JSON.stringify(objs, null, 2));
     expect(objs.value).toEqual(4);
 
     expect(objs.left.value).toEqual(2);
