@@ -26,13 +26,60 @@
 const { getUser } = require("./jobs");
 
 const findMostCommonTitle = (myId, degreesOfSeparation) => {
-  // code goes here
+  // plan:
+  // get user with id
+  // get the job
+  // enqueue the person's connections
+  // iterate through the queue
+  // dequeue first person
+  // get the person's job
+  // enqueue the person's connections
+  // iteration number = degrees of separation
+
+  const titleCount = {};
+  let queue = [myId];
+  let idSet = new Set(queue);
+
+  for (let i = 0; i <= degreesOfSeparation; i += 1) {
+    const queueSize = queue.length;
+    for (let i = 0; i < queueSize; i += 1) {
+      const id = queue.shift();
+      const user = getUser(id);
+      const title = user.title;
+
+      if (titleCount[title]) {
+        titleCount[title] += 1;
+      } else {
+        titleCount[title] = 1;
+      }
+
+      const idsToQueue = user.connections.filter((id) => {
+        const isInSet = idSet.has(id);
+        idSet.add(id);
+        return !isInSet;
+      });
+      queue = queue.concat(idsToQueue);
+    }
+  }
+
+  let maxCount = 0;
+  let mostCommonTitle;
+
+  for (const [title, count] of Object.entries(titleCount)) {
+    if (count > maxCount) {
+      mostCommonTitle = title;
+      maxCount = count;
+    }
+  }
+
+  return mostCommonTitle;
 };
 
 // unit tests
 // do not modify the below code
-test.skip("findMostCommonTitle", function () {
+describe("findMostCommonTitle", function () {
   // the getUser function and data comes from this CodePen: https://codepen.io/btholt/pen/NXJGwa?editors=0010
+
   test("user 30 with 2 degrees of separation", () => {
     expect(findMostCommonTitle(30, 2)).toBe("Librarian");
   });
@@ -48,7 +95,7 @@ test.skip("findMostCommonTitle", function () {
   });
 });
 
-test.skip("extra credit", function () {
+describe("extra credit", function () {
   test("user 1 with 7 degrees of separation – this will traverse every user that's followed by someone else. five users are unfollowed", () => {
     expect(findMostCommonTitle(1, 7)).toBe("Geological Engineer");
   });
