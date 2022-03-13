@@ -11,21 +11,13 @@ const heapSort = (array) => {
   // 1. create a max heap
   // 2. dequeue the first node (and push it to the end of the array)
   // 3. decrement heapSize
-  // 4. create a max heap
+  // 4. call heapify on first element in the array
   // repeat until heapSize is 0
-
   createMaxHeap(array);
-  let heapSize = array.length;
-  while (heapSize > 0) {
-    heapify(array, 0, heapSize);
 
-    const maxValue = array[0];
-    const lastValue = array[heapSize - 1];
-
-    array[0] = lastValue;
-    array[heapSize - 1] = maxValue;
-
-    heapSize -= 1;
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    swapPlace(0, i, array);
+    heapify(array, 0, i);
   }
 
   return array;
@@ -49,32 +41,34 @@ const heapify = (array, index, heapSize) => {
   // right child index: 2n + 2
   // if either right or left node is greater than root,
   // swap the greater child with root
-  // call heapify on the child with root
+  // call heapify on the swapped index
 
   if (index >= heapSize) return;
 
-  const leftChildIndex = index * 2 + 1;
-  const rightChildIndex = index * 2 + 2;
-  const rootValue = array[index];
-  const leftValue =
-    leftChildIndex > heapSize - 1 ? -Infinity : array[leftChildIndex];
-  const rightValue =
-    rightChildIndex > heapSize - 1 ? -Infinity : array[rightChildIndex];
+  const leftIndex = index * 2 + 1;
+  const rightIndex = index * 2 + 2;
 
-  if (leftValue > rightValue && leftValue > rootValue) {
-    // swap root and left node
-    // call heapify on right node
-    array[index] = leftValue;
-    array[leftChildIndex] = rootValue;
-    heapify(array, leftChildIndex, heapSize);
-  } else if (rightValue > leftValue && rightValue > rootValue) {
-    // swap root and right node
-    // call heapify on right node
-    array[index] = rightValue;
-    array[rightChildIndex] = rootValue;
-    heapify(array, rightChildIndex, heapSize);
+  let largestValueIndex = index;
+
+  if (leftIndex < heapSize && array[leftIndex] > array[largestValueIndex]) {
+    largestValueIndex = leftIndex;
+  }
+
+  if (rightIndex < heapSize && array[rightIndex] > array[largestValueIndex]) {
+    largestValueIndex = rightIndex;
+  }
+
+  if (largestValueIndex !== index) {
+    swapPlace(index, largestValueIndex, array);
+    heapify(array, largestValueIndex, heapSize);
   }
 };
+
+function swapPlace(index1, index2, array) {
+  const temp = array[index1];
+  array[index1] = array[index2];
+  array[index2] = temp;
+}
 
 // unit tests
 // do not modify the below code
@@ -105,9 +99,9 @@ describe("heap sort", function () {
 
   test("heap sort", function () {
     const nums = [2, 5, 3, 8, 10, 6, 4, 7, 9, 1];
+
     heapSort(nums);
-    // eslint-disable-next-line no-console
-    console.log("debug: nums", nums);
+
     expect(nums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 });
